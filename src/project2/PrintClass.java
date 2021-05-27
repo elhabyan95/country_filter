@@ -19,15 +19,15 @@ public class PrintClass {
 
     public void printAvgOfPopulation(List<Country> countryOut) {
         System.out.printf("average population is %s%n", countryOut.stream()
-                .map(Country::getPopulation)
-                .mapToInt(a -> a).average().getAsDouble());
+                .mapToDouble(Country::getPopulation)
+                .average().getAsDouble());
 
     }
 
     public void printMaxPopulation(List<Country> countryOut) {
         System.out.printf("max population is %d%n", countryOut.stream()
-                .map(Country::getPopulation)
-                .max(Integer::compareTo).get());
+                .mapToInt(Country::getPopulation)
+                .max().getAsInt());
 
     }
 

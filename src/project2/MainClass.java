@@ -8,9 +8,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.function.BiPredicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class MainClass {
 
@@ -33,6 +35,9 @@ public class MainClass {
         } catch (IOException ex) {
             Logger.getLogger(MainClass.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        // Creating a map that uses the country code as keys and a list of cities as the value for each country.
+        
         Map< String, List<City>> listOfCites = new LinkedHashMap<>();
 
         for (Country country : countryOut) {
@@ -44,31 +49,36 @@ public class MainClass {
 
         }
         System.out.println(listOfCites);
+        
+        // For a given country code (from Console) sort the cities according to the population.
 
-//
         Scanner in = new Scanner(System.in);
         System.out.println("please enter any string");
         String s1 = in.nextLine();
         cityOut.stream()
                 .filter(d -> d.getCountryCode().equals(s1))
-                .map(City::getPopulation)
-                .sorted()
+                .sorted( Comparator.comparing(City::getPopulation).reversed())
                 .collect(Collectors.toList())
                 .forEach(val -> System.out.println(val));
-
+        
+          // print a List of countries population.
         p1.printCountriesPopulation(countryOut);
         
+        //print the average countries population.
         p1.printAvgOfPopulation(countryOut);
         
+        //print the maximum countries population.
         p1.printMaxPopulation(countryOut);
         
-      
+        listOfCites.forEach((k,v) -> System.out.println(k + " " + v.stream().mapToInt(City::getPopulation).max().getAsInt()));
+        
+        
+        
+        //print the highest population city of each country.
         List<Integer> list = new ArrayList<Integer>();
-
         for (Map.Entry<String, List<City>> entry : listOfCites.entrySet()) {
             String key = entry.getKey();
             List<City> value = entry.getValue();
-
             if (value.size() != 0) {
                 int l1 = (value.stream()
                         .map(City::getPopulation)
@@ -83,8 +93,12 @@ public class MainClass {
             
              cityOut.stream()
                     .filter(val -> val.getPopulation() == integer )
-                    .forEach(val -> System.out.println(val));
+                    .forEach(val -> System.out.println(val.getName()));
             
         }
-    }
-}
+        List<Integer> capitals = countryOut.stream().map(Country::getCapital).collect(Collectors.toList());
+       
+        System.out.println(cityOut.stream().filter(var -> capitals.contains(var.getId())).mapToInt(City::getPopulation).max());
+        
+
+        }}

@@ -49,7 +49,7 @@ public class City {
     }
     
     public String toString() {
-    return name;
+    return id + name +" "+ population+" " + countryCode ;
   }
 
 }
