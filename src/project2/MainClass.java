@@ -70,7 +70,7 @@ public class MainClass {
         //print the maximum countries population.
         p1.printMaxPopulation(countryOut);
         
-        listOfCites.forEach((k,v) -> System.out.println(k + " " + v.stream().mapToInt(City::getPopulation).max().getAsInt()));
+        //listOfCites.forEach((k,v) -> System.out.println(k + " " + v.stream().mapToInt(City::getPopulation).max().getAsInt()));
         
         
         
